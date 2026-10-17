@@ -44,7 +44,7 @@ function validate(step: number, f: Form, file: File | null) {
   if (step === 4) {
     if (!f.network) e.network = "Select the network you paid with.";
     if (!(Number(f.amount) > 0)) e.amount = "Enter the amount you paid.";
-    if (f.transactionId.trim().length < 4) e.transactionId = "Enter the transaction reference from your SMS.";
+    if (f.transactionId.trim().length < 4) e.transactionId = "Enter the Phone Number you used to Pay.";
     if (!f.paymentDate) e.paymentDate = "Select the payment date.";
     else if (f.paymentDate > new Date().toISOString().slice(0, 10)) e.paymentDate = "Payment date cannot be in the future.";
     if (!file) e.file = "Please upload your payment confirmation.";
@@ -177,7 +177,7 @@ function Apply() {
                 <Field label="Amount paid (RWF)" required error={errors.amount}><input className="field-input" inputMode="numeric" value={f.amount} onChange={(e) => set("amount", e.target.value.replace(/[^\d.]/g, ""))} aria-invalid={!!errors.amount} /></Field>
                 <Field label="Payment date" required error={errors.paymentDate}><input className="field-input" type="date" value={f.paymentDate} max={new Date().toISOString().slice(0, 10)} onChange={(e) => set("paymentDate", e.target.value)} aria-invalid={!!errors.paymentDate} /></Field>
               </div>
-              <Field label="Transaction reference / ID" required error={errors.transactionId}><input className="field-input font-mono" value={f.transactionId} onChange={(e) => set("transactionId", e.target.value)} aria-invalid={!!errors.transactionId} maxLength={60} /></Field>
+              <Field label="Phone number (used to Pay)" required error={errors.transactionId}><input className="field-input font-mono" value={f.transactionId} onChange={(e) => set("transactionId", e.target.value)} aria-invalid={!!errors.transactionId} maxLength={60} /></Field>
               <ReceiptUpload file={file} onChange={(x) => { setFile(x); setErrors((p) => { const n = { ...p }; delete n.file; return n; }); }} error={errors.file} />
             </Section>
           )}
